@@ -1,10 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { PrismaClient } from '@prisma/client'
-import { useRouter } from 'next/router'
-
-const prisma = new PrismaClient()
-
+import prisma from '@/lib/prisma'
 
 export default async function handler(
     req: NextApiRequest,
@@ -20,6 +16,8 @@ export default async function handler(
         reviews:true
        }
     })
-    
-    res.status(200).json({ users: data })
+    if(data === null){
+        return res.status(404).json({ result: 'Beer Not Found'})
+      }
+     return res.status(200).json({ data: data })
 }
