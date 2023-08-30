@@ -12,10 +12,11 @@ datasource db {
 
 model User {
   id       String   @id @default(uuid())
-  name     String
   email    String   @unique
+  name     String
   password String
   Review   Review[]
+  Notes    Notes[]
 }
 
 model Beer {
@@ -24,23 +25,36 @@ model Beer {
   description String
   rating      Int
   IBU         Int
-  reviews     Review[]
-  categorie   Categorie @relation(fields: [categorieId], references: [id])
+  ABV         Int
+  createdAt   DateTime  @default(now())
   categorieId String
+  categorie   Categorie @relation(fields: [categorieId], references: [id])
+  reviews     Review[]
+  Notes       Notes[]
 }
 
 model Review {
-  id      String @id @unique @default(cuid())
-  user    User   @relation(fields: [userId], references: [id])
-  beer    Beer   @relation(fields: [beerId], references: [id])
-  Title   String
-  content String
-  userId  String
-  beerId  String
+  id        String   @id @unique @default(cuid())
+  user      User     @relation(fields: [userId], references: [id])
+  beer      Beer     @relation(fields: [beerId], references: [id])
+  Title     String
+  content   String
+  userId    String
+  beerId    String
+  createdAt DateTime @default(now())
 }
 
 model Categorie {
   id   String @id @default(cuid())
   name String @unique
   Beer Beer[]
+}
+
+model Notes {
+  id     String @id @default(uuid())
+  beer   Beer   @relation(fields: [beerId], references: [name])
+  user   User   @relation(fields: [userId], references: [id])
+  beerId String
+  userId String
+  note   Int
 }
