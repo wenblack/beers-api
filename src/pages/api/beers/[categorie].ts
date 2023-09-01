@@ -6,19 +6,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const data = await prisma.beer.findMany({
-    select:{
-       id:false,
-       name:true,
-       description:true,
-       IBU:true,
-       rating:true,
+  const { categorie } = req.query
+  const categorieConverted = String(categorie)
+  const data = await prisma.categorie.findMany({
+    where: {
+      name: categorieConverted
+    },
+    select: {
+      Beer: true,_count:true
     }
   })
-  if(data.length ===0){
-    
-    return res.status(404).json({ result: 'Categorie not Found'})
+
+  let total = data.length
+  if (total === 0) {
+    return res.status(404).json({ result: 'Categorie not Found' })
   }
-  return res.status(200).json({ result: data })
-  
+  return res.status(200).json({data: data })
+
 }

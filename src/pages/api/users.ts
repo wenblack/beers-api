@@ -12,9 +12,9 @@ export default async function handler(
 ) {
   const data = await prisma.user.findMany({
     select:{
-      id:false,
+      id:true,
       email:true,
-      name:true
+      name:true,
     }
   })
   res.status(200).json({ users: data })
