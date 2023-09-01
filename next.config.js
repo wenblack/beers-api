@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output:'export'
+  output: 'export'
 }
 const isGithubActions = process.env.GITHUB_ACTIONS || false
 
@@ -19,12 +19,13 @@ module.exports = {
   assetPrefix: assetPrefix,
   basePath: basePath,
   images: {
-      remotePatterns: [
-          {
-              protocol: 'http',
-              hostname: 'github.com',
-          },
-      ],
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'github.com',
+      },
+    ],
   },
   ...nextConfig
 }
