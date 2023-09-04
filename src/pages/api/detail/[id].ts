@@ -19,6 +19,7 @@ export default async function handler(
           rating:true,
           ABV:true, 
           categorie:true,
+          reviews:true
        }
     })
     const average = await prisma.notes.aggregate({
