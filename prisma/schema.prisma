@@ -35,12 +35,12 @@ model Beer {
 
 model Review {
   id        String   @id @unique @default(cuid())
-  user      User     @relation(fields: [userId], references: [id])
-  beer      Beer     @relation(fields: [beerId], references: [id])
+  user      User?     @relation(fields: [userId], references: [id])
+  beer      Beer?     @relation(fields: [beerId], references: [id])
   Title     String
   content   String
-  userId    String
-  beerId    String
+  userId    String?
+  beerId    String?
   createdAt DateTime @default(now())
 }
 
