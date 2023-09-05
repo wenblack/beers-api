@@ -44,13 +44,13 @@ Here is the response we get:
 }
     
 
-If your response looks slightly different don't panic. This is probably because more data has been added to swapi since we made this documentation.
+If your response looks slightly different don't panic. This is probably because more data has been added to WBAPI since we made this documentation.
 
 ### Base URL
 
-The **Base URL** is the root URL for all of the API, if you ever make a request to swapi and you get back a **404 NOT FOUND** response then check the Base URL first.
+The **Base URL** is the root URL for all of the API, if you ever make a request to WBAPI and you get back a **404 NOT FOUND** response then check the Base URL first.
 
-The Base URL for swapi is:
+The Base URL for WBAPI is:
 
     http://localhost:3000/api/
     
@@ -59,7 +59,7 @@ The documentation below assumes you are prepending the Base URL to the endpoints
 
 ### Authentication
 
-Swapi is a **completely open API**. No authentication is required to query and get data. This also means that we've limited what you can do to just **GET**\-ing the data.
+WBAPI is a **completely open API**. No authentication is required to query and get data. This also means that we've limited what you can do to just **GET**\-ing the data.
 
 ### Searching
 
