@@ -9,6 +9,7 @@ export default async function handler(
 ) {
   
   const {name, email, password, confirmPassword} = req.body
+  
   const hasUser = await prisma.user.findUnique({
     where:{
       email:String(email)
@@ -18,31 +19,31 @@ export default async function handler(
   })
 
   if (req.method != 'POST'){
-    return res.status(404).json({
+    return res.status(405).json({
       message:"Method not Allowed"
     })
   }
 
   if(password === undefined){
-    return res.status(404).json({
+    return res.status(400).json({
       message:"Some required fields are missing"
     })
   }
 
   if(confirmPassword === undefined){
-    return res.status(404).json({
+    return res.status(400).json({
       message:"Some required fields are missing"
     })
   }
 
   if(hasUser){
-    return res.status(200).json({
+    return res.status(401).json({
       message : "E-mail already registered! Did you forget your password?"
     })
   }
 
   if(password != confirmPassword){
-    return res.status(200).json({
+    return res.status(400).json({
       message : "Passwords dont matching"
     })
   }
@@ -57,7 +58,9 @@ export default async function handler(
       email:true
     }
   })
-  return res.status(200).json({
+
+
+  return res.status(201).json({
     message: `User ${newUser.email} created!`
   })
 }
