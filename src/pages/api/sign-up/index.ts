@@ -1,15 +1,17 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import prisma from '@/lib/prisma'
+import {SHA256} from 'crypto-js'
 
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
-) {
-  
-  const {name, email, password, confirmPassword} = req.body
-  
+  ) {
+    
+    const {name, email, password, confirmPassword} = req.body
+    const hash = String(SHA256(password))
+    
   const hasUser = await prisma.user.findUnique({
     where:{
       email:String(email)
@@ -52,7 +54,7 @@ export default async function handler(
     data:{
       email:email,
       name:name,
-      password:password,
+      password:hash,
     },
     select:{
       email:true
