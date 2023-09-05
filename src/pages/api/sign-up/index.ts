@@ -11,7 +11,9 @@ export default async function handler(
   const {name, email, password, confirmPassword} = req.body
   const hasUser = await prisma.user.findUnique({
     where:{
-      email:email
+      email:String(email)
+    },select:{
+      email:true
     }
   })
 
