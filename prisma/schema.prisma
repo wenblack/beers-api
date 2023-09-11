@@ -23,6 +23,7 @@ model Beer {
   id          String    @id @unique @default(cuid())
   name        String    @unique
   description String
+  imageUrl    String?   
   rating      Int
   IBU         Int
   ABV         Int
