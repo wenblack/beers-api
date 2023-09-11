@@ -9,7 +9,9 @@ export default async function handler(
   res: NextApiResponse
   ) {
     
-    const { email, password} = req.body
+    const email = String(req.query.email)
+    const password = String(req.query.password)
+
     const hash = String(SHA256(password))
        
   const hasUser = await prisma.user.findUnique({
@@ -22,7 +24,7 @@ export default async function handler(
     }
   })
 
-  if (req.method != 'POST'){
+  if (req.method != 'GET'){
     return res.status(405).json({
       message:"Method not Allowed"
     })
